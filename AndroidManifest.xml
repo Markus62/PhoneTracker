@@ -4,6 +4,11 @@
           android:versionCode="1"
           android:versionName="1.0">
   <uses-sdk android:minSdkVersion="15"/>
+  <uses-permission android:name="android.permission.SEND_SMS" />
+  <uses-permission android:name="android.permission.RECEIVE_SMS" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+  <uses-permission android:name="android.permission.INTERNET"></uses-permission>
   <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
     <activity android:name="MainActivity"
               android:label="@string/app_name">
@@ -12,5 +17,22 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+    <receiver android:name=".SMSBroadCastReceiver">
+      <intent-filter>
+        <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.DATA_SMS_RECEIVED"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:scheme="sms" />
+        <data android:host="localhost"/>
+        <data android:port="15555" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name=".EmailBroadcastReceiver">
+      <intent-filter>
+        <action android:name="de.emri.intent.action.SEND_EMAIL"/>
+      </intent-filter>
+    </receiver>
   </application>
 </manifest>
